@@ -60,12 +60,20 @@ export default function (context, inject) {
             zoom: 18,
             center: new window.google.maps.LatLng(lat, lng),
             disableDefaultUI: true,
-            zoomControl: false
+            zoomControl: false,
+            styles: [{
+                featureType: "poi.business",
+                elementType: 'labels.icon',
+                stylers: [{visibility: 'off'}]
+            }]
         }
         const map = new window.google.maps.Map(canvas, mapOptions)
         if (!markers) {
             const position = new window.google.maps.LatLng(lat, lng)
-            const marker = new window.google.maps.Marker({position})
+            const marker = new window.google.maps.Marker({
+                position,
+                clickable: false
+            })
             marker.setMap(map)
             return
         }
@@ -77,17 +85,15 @@ export default function (context, inject) {
                 position,
                 label: {
                     text: `$${m.pricePerNight}`,
-                    className: "marker"
+                    className: `marker home-${m.id}`
                 },
                 icon: "https://maps.gstatic.com/mapfiles/transparent.png",
-
+                clickable: false
             })
             marker.setMap(map)
             bounds.extend(position)
         })
-
         map.fitBounds(bounds)
-
     }
 
     function renderMap(canvas, lat, lng) {

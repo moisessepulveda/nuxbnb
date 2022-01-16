@@ -16,7 +16,13 @@ export default {
         prefetchLinks: false
     },
     plugins: ['~/plugins/maps.client', "~/plugins/dataApi"],
-    modules: ['@nuxtjs/axios']
-    
-    
+    modules: ['@nuxtjs/axios'],
+    buildModules: ["@nuxtjs/tailwindcss"],
+    css: ['~/assets/sass/app.scss'],
+    build: {
+        extractCSS: true,
+        loaders: {
+            limit: 0
+        }
+    }
 }

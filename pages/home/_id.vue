@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <div style="display:flex">
-      <img v-for="image in home.images" :key="image" :src="image" width="200" height="150" alt="something ">
-    </div>
+  <div class="app-container">
+    <property-gallery :images="home.images" />
+
+    <property-details :home="home" />
+
     {{ home.title }} <br>
     {{ home.pricePerNight }} / por noche <br>
     <img src="/images/marker.svg" alt="" width="20" height="20">
-    {{ home.location.address }} {{ home.location.city }} {{ home.location.country }} <br>
     <img src="/images/star.svg" alt="" width="20" height="20">
     {{ home.reviewValue }} <br>
     {{ home.guests }} invitados, {{ home.bedrooms }} habitaciones, {{ home.bathrooms }} baños <br>
@@ -33,7 +33,7 @@
 import homes from '~/data/homes.json'
 
 export default {
-  layout: 'red',
+  // layout: 'red',
   head() {
     return {
       title: this.home.title,
