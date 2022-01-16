@@ -1,19 +1,20 @@
 <template>
-  <div>
-    <div> Resultados para: {{ label }}</div>
-    <div style="width:800px; height:800px; float: right" ref="map"></div>
-
-    <div v-if="homes.length > 0">
-      <nuxt-link v-for="home in homes"
-                 :to="`/home/${home.objectID}`"
-                 :key="home.objectID">
-        <home-row :home="home"
-                  @mouseover.native="highlightMarker(home.objectID, true)"
-                  @mouseout.native="highlightMarker(home.objectID, false)"/>
-      </nuxt-link>
-    </div>
-    <div v-else>
-      <h2>No hay resultados</h2>
+  <div class="app-search-results-page">
+    <div class="app-search-results">
+      <div class="app-search-results-listing">
+        <h2 class="app-title">Quedate en {{ label }}</h2>
+        <nuxt-link v-for="home in homes"
+                   :to="`/home/${home.objectID}`"
+                   :key="home.objectID">
+          <home-row class="app-house"
+                    :home="home"
+                    @mouseover.native="highlightMarker(home.objectID, true)"
+                    @mouseout.native="highlightMarker(home.objectID, false)"/>
+        </nuxt-link>
+      </div>
+      <div class="app-search-results-map">
+        <div class="app-map" ref="map"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +40,7 @@ export default {
           this.lng, this.getHomeMarkers())
     },
     getHomeMarkers() {
+      if(this.homes.length === 0) return null
       return this.homes.map((h) => {
         return {
           ...h._geoloc,
