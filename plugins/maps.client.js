@@ -76,7 +76,8 @@ export default function (context, inject) {
             const marker = new window.google.maps.Marker({
                 position,
                 label: {
-                    text: `$${m.pricePerNight}`
+                    text: `$${m.pricePerNight}`,
+                    className: "marker"
                 },
                 icon: "https://maps.gstatic.com/mapfiles/transparent.png",
 
