@@ -16,7 +16,7 @@
       <div class="app-user-menu">
         <img src="/images/icons/house.svg" alt="home">
         <div class="name">host</div>
-        <img src="/images/user.jpg" alt="" class="avatar">
+         <div id="googleButton"></div>
       </div>
 
     </header>
@@ -27,6 +27,9 @@
 
 <script>
 export default {
+  created() {
+    console.log("created: ", this.$config.test1, this.$config.test2)
+  },
   mounted() {
     this.$maps.makeAutoComplete(this.$refs.citySearch)
   },
