@@ -1,6 +1,7 @@
 import getApis from './apis'
 import userRouter from './routers/user'
 import bodyParser from "body-parser";
+import homesRouter from './routers/homes'
 
 export default function () {
     const algoliaConfig = this.options.privateRuntimeConfig.algolia
@@ -8,6 +9,6 @@ export default function () {
     this.nuxt.hook('render:setupMiddleware', (app) => {
         app.use(bodyParser.urlencoded())
         app.use('/api/user', userRouter(apis))
+        app.use('/api/homes', homesRouter(apis))
     })
-
 }

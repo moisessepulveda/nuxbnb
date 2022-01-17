@@ -31,7 +31,7 @@
 <script>
 export default {
   created() {
-    console.log("created: ", this.$config.test1, this.$config.test2)
+    // console.log("created: ", this.$config.test1, this.$config.test2)
   },
   mounted() {
     this.$maps.makeAutoComplete(this.$refs.citySearch)

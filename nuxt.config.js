@@ -1,7 +1,7 @@
 export default {
     components: true,
     head: {
-        titleTemplate: "mastering nuxt %s",
+        titleTemplate: "Master Bnb %s",
         htmlAttrs: {
             Lang: "es"
         },

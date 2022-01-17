@@ -5,10 +5,10 @@ import axios from "axios";
 export default (apis) => {
     return async function getUserRoute(req, res, next) {
         const identity = req.identity
-        console.log(identity);
+       // console.log(identity);
         const userData = await apis.user.getById(identity)
-        console.log("userdata");
-        console.log(userData);
+        // console.log("userdata");
+        // console.log(userData);
         if(userData.status === 200) {
             sendJSON(userData.data, res)
             return
