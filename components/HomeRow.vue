@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import pluralize from "~/components/utils/pluralize";
+import pluralize from "~/utils/pluralize";
 
 export default {
   props: {

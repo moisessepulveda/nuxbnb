@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import shortDate from "~/components/utils/shortDate";
+import shortDate from "~/utils/shortDate";
 export default {
   name: "PropertyHost",
   props: {

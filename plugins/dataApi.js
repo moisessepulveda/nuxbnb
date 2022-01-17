@@ -1,9 +1,11 @@
 import axios from 'axios'
 
+import {unWrap, getErrorResponse  } from "~/utils/fetchUtils";
 
-export default function (context, inject) {
-    const appId = "2V5C6VB6RO"
-    const apiKey = "2a38a702cc6fb60480795cdc265dfe48"
+export default function ({$config}, inject) {
+    const appId = $config.algolia.appId
+    const apiKey = $config.algolia.apiKey
+
     const headers = {
         "X-Algolia-API-Key": apiKey,
         "X-Algolia-Application-Id": appId,
@@ -79,22 +81,6 @@ export default function (context, inject) {
         }
     }
 
-    async function unWrap(response) {
-        const {data, status, statusText} = response
-        return {
-            data,
-            status,
-            statusText
-        }
-    }
 
-    function getErrorResponse(error) {
-        return {
-            ok: false,
-            status: 500,
-            statusText: error.message,
-            json: {}
-        }
-    }
 
 }

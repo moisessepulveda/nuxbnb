@@ -1,9 +1,13 @@
-
 import Cookie from 'js-cookie'
-
-export default ({$config}) => {
+import {unWrap} from "~/utils/fetchUtils";
+import axios from "axios";
+export default ({$config, store}, inject) => {
     window.initAuth = init
     addScript()
+
+    inject('auth', {
+        signOut
+    })
 
     function addScript() {
         const script = document.createElement('script')
@@ -24,15 +28,35 @@ export default ({$config}) => {
         })
     }
 
-    function parseUser(user) {
-        const profile = user.getBasicProfile()
-        console.log("name: " + profile.getName());
-        console.log("image url: " + profile.getImageUrl());
+    async function parseUser(user) {
+
         const idToken = user.getAuthResponse().id_token;
+        if (!user.isSignedIn()) {
+            Cookie.remove($config.auth.cookieName)
+            store.commit('auth/user', null)
+            return
+        }
+
         Cookie.set($config.auth.cookieName, idToken, {
-            expires: 1/24,
+            expires: 1 / 24,
             sameSite: 'Lax'
         })
+
+       try {
+           const response = await unWrap(await axios.get('/api/user'))
+           const user = response.data
+           store.commit('auth/user', {
+               fullName: user.name,
+               profileUrl: user.image,
+           })
+       } catch(error) {
+           console.log(error);
+       }
+    }
+
+    function signOut() {
+        const auth2 = window.gapi.auth2.getAuthInstance()
+        auth2.signOut()
     }
 
 }
