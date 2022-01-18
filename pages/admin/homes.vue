@@ -3,7 +3,7 @@
     <div>Listado de casas</div>
     <br>
     <h2 class="text-xl bold">Agrega una nueva casa</h2>
-
+    <image-uploader />
     <form action="" class="form" @submit.prevent="onSubmit" enctype="application/x-www-form-urlencoded">
       image: <br>
       <input type="text" class="w-3/4" v-model="home.images[0]">

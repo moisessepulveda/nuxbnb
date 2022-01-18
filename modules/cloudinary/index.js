@@ -5,7 +5,7 @@ export default function () {
 
 
     this.nuxt.hook('render:setupMiddleware', (app) => {
-        app.use('api/cloudinary, signature', setSignature)
+        app.use('api/cloudinary/signature', setSignature)
     })
 
 
