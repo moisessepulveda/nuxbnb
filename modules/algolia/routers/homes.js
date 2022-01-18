@@ -3,18 +3,13 @@ import {v4 as uuidv4} from 'uuid'
 
 export default (apis) => {
     return async (req, res) => {
-        //console.log(req);
         if (req.method === 'POST') {
             if (hasBadBody(req)) {
-                // console.log("r1");
-               // console.log(req.body);
                 return rejectHitBadRequest(res)
             }
             await createHomes(req.identity, req.body, res)
             return
         }
-        //console.log(req.body);
-        //console.log("r2");
         rejectHitBadRequest(res)
     }
 

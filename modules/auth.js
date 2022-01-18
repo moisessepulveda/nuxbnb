@@ -18,8 +18,7 @@ export default function () {
     async function handler(req, res, next) {
         const idToken = cookie.parse(req.headers.cookie)[authConfig.cookieName]
         if(!idToken) return rejectHit(res)
-        //console.log(req.originalUrl);
-        //console.log(idToken);
+
         const ticket = await getUser(idToken)
         if(!ticket) return rejectHit(res)
         req.identity = {
@@ -28,7 +27,6 @@ export default function () {
             name: ticket.name,
             image: ticket.picture
         }
-       // console.log(ticket);
         next()
     }
 
