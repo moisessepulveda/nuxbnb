@@ -39,9 +39,12 @@
       Baños: <br>
       <input type="number" v-model="home.bathrooms" class="w-26">
       <br>
-
+      <input type="text" ref="locationSelector"
+             @changed="changed"
+             autocomplete="off" placeholder="Selecciona la dirección">
+      <br>
       Dirección: <input type="text" v-model="home.location.address" class="w-60"><br>
-      Ciudad: <input type="text" v-model="home.location.address" class="w-60"><br>
+      Ciudad: <input type="text" v-model="home.location.city" class="w-60"><br>
       Estado: <input type="text" v-model="home.location.state" class="w-60"><br>
       Código postal: <input type="text" v-model="home.location.postalCode" class="w-60"><br>
       País: <input type="text" v-model="home.location.country" class="w-60"><br>
@@ -89,9 +92,32 @@ export default {
   },
   mounted() {
     // just for testing
+    this.$maps.makeAutoComplete(this.$refs.locationSelector, ['address'])
     this.fillForm()
   },
   methods: {
+    changed(event) {
+      const addressParts = event.detail.address_components
+      console.log(event.detail);
+      const street = this.getAddressPart(addressParts, 'street_number')?.short_name || ''
+      const route = this.getAddressPart(addressParts, 'route')?.short_name || ''
+      this.home.location.address = street + " " + route
+      this.home.location.city = this.getAddressPart(addressParts, 'locality')?.short_name || ''
+      this.home.location.state = this.getAddressPart(addressParts, 'administrative_area_level_1')?.long_name || ''
+      this.home.location.country = this.getAddressPart(addressParts, 'country')?.short_name || ''
+      this.home.location.postalCode = this.getAddressPart(addressParts, 'postal_code')?.short_name || ''
+
+      const geo = event.detail.geometry.location
+      this.home._geoloc.lat = geo.lat()
+      this.home._geoloc.lng = geo.lng()
+
+
+      console.log(street);
+      console.log(addressParts);
+    },
+    getAddressPart(parts, type) {
+      return parts.find(part => part.types.includes(type))
+    },
     fillForm() {
       this.home.title = " mi titulo"
       this.home.description = "mi descripcion"

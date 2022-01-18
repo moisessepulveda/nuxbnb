@@ -16,7 +16,7 @@ export default {
         prefetchLinks: false
     },
     plugins: ['~/plugins/maps.client', "~/plugins/dataApi", "~/plugins/auth.client"],
-    modules: ['@nuxtjs/axios', '~/modules/auth', '~/modules/algolia'],
+    modules: ['@nuxtjs/axios', '~/modules/auth', '~/modules/algolia', '~/modules/cloudinary'],
     buildModules: ["@nuxtjs/tailwindcss"],
     css: ['~/assets/sass/app.scss'],
     build: {
@@ -40,6 +40,9 @@ export default {
         algolia: {
             appId: "2V5C6VB6RO",
             apiKey: '8e5e9a822d76fc18ef76b0912d291c45',
+        },
+        cloudinary: {
+            apiSecret: "pv300ADklwU2O8BeKERnguBCcZA"
         }
     },
 }
