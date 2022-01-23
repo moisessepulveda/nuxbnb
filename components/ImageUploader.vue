@@ -13,10 +13,10 @@ export default {
     async uploadFile(e) {
       const file = e.target.files[0]
       if(!file) return
-      const fileName = file.name.split('.').slice(0,-1).join(',') + Date().now()
+      const fileName = file.name.split('.').slice(0,-1).join(',') + Date.now()
       const options = {
         timestamp: Date.now(),
-        public_id: filename,
+        public_id: fileName,
       }
 
       const response = await unWrap(this.$axios.post('/api/cloudinary/signature',
